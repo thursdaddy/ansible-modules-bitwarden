@@ -121,6 +121,14 @@ ok: [localhost] => {
     }
 ```
 
+### List folder items
+
+```yaml
+# List the folder 'SSH Keys' items
+- debug:
+    msg: "{{ lookup('bitwarden', 'SSH Keys', folder=true ) }}"
+```
+
 ### download attachments files
 
 ```yaml

@@ -148,6 +148,10 @@ class Bitwarden(object):
             key), '--output={}'.format(output), '--itemid={}'.format(itemid)]
         return self._run(attachment)
 
+    def list_folder(self, key):
+        folder = json.loads(self._run(['get', 'folder', '{}'.format(key)]))
+        data = json.loads(self._run(['list', 'items', '--folderid={}'.format(folder['id'])]))
+        return data
 
 class LookupModule(LookupBase):
 
@@ -168,7 +172,9 @@ class LookupModule(LookupBase):
             bw.session = kwargs.get('session')
 
         for term in terms:
-            if kwargs.get('custom_field'):
+            if kwargs.get('folder'):
+                values.append(bw.list_folder(term))
+            elif kwargs.get('custom_field'):
                 values.append(bw.get_custom_field(term, field))
             elif field == 'notes':
                 values.append(bw.get_notes(term))
