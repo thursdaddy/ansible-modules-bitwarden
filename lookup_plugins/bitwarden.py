@@ -150,8 +150,7 @@ class Bitwarden(object):
 
     def list_folder(self, key):
         folder = json.loads(self._run(['get', 'folder', '{}'.format(key)]))
-        data = json.loads(self._run(['list', 'items', '--folderid={}'.format(folder['id'])]))
-        return data
+        return json.loads(self._run(['list', 'items', '--folderid={}'.format(folder['id'])]))
 
 class LookupModule(LookupBase):
 
